@@ -5,7 +5,8 @@ using ValidationException = Ordering.Application.Exceptions.ValidationException;
 
 namespace Ordering.Application.Behaviours
 {
-    public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> 
+        where TRequest : IRequest<TResponse>
     {
         private readonly IEnumerable<IValidator<TRequest>> _validators;
 
