@@ -7,7 +7,7 @@ using Ordering.Domain.Entities;
 
 namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
 {
-    public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand>
+    public class UpdateOrderCommandHandler : IRequestHandler<UpdateOrderCommand, bool>
     {
         private readonly IOrderRepository _repository;
         private readonly IMapper _mapper;
@@ -23,7 +23,7 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
             _logger = logger;
         }
 
-        public async Task Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateOrderCommand request, CancellationToken cancellationToken)
         {
             Order order = await _repository.GetByIdAsync(request.Id);
 
@@ -40,7 +40,7 @@ namespace Ordering.Application.Features.Orders.Commands.UpdateOrder
 
             _logger.LogInformation($"Order {order.Id} is successfully updated.");
 
-            return;
+            return true;
         }
         
     }

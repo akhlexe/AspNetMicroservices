@@ -7,7 +7,7 @@ using Ordering.Domain.Entities;
 
 namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
 {
-    public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand>
+    public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, bool>
     {
         private readonly IOrderRepository _orderRepository;
         private readonly ILogger<DeleteOrderCommandHandler> _logger;
@@ -20,7 +20,7 @@ namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
             _logger = logger;
         }
 
-        public async Task Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
             Order order = await _orderRepository.GetByIdAsync(request.Id);
 
@@ -33,7 +33,7 @@ namespace Ordering.Application.Features.Orders.Commands.DeleteOrder
 
             _logger.LogInformation($"Order {order.Id} deleted successfully.");
 
-            return;
+            return true;
         }
     }
 }
