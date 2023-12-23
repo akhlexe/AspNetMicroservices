@@ -1,6 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Ordering.Infrastructure.Persistence;
 
 namespace Ordering.API.Extensions
 {
@@ -33,7 +32,7 @@ namespace Ordering.API.Extensions
                     logger.LogError(ex, "An error ocurred in the migration.");
                     
                     if(retryForAvailability < 50)
-                    {
+                    { 
                         retryForAvailability++;
                         System.Threading.Thread.Sleep(2000);
                         MigrateDatabase(host, seeder, retryForAvailability);
