@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Features.Orders.Commands.CheckoutOrder;
+using Ordering.Application.Features.Orders.Commands.DeleteOrder;
 using Ordering.Application.Features.Orders.Commands.UpdateOrder;
 using Ordering.Application.Features.Orders.Queries.GetOrdersList;
 using System.Net;
@@ -40,6 +41,15 @@ namespace Ordering.API.Controllers
         {
             bool result = await _mediator.Send(command);
             return Ok(result);
+        }
+
+        [HttpDelete("{id}", Name = "DeleteOrder")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<NoContentResult> DeleteOrder(int id)
+        {
+            DeleteOrderCommand command = new DeleteOrderCommand() { Id = id };
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }
