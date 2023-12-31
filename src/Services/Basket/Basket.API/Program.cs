@@ -19,6 +19,10 @@ builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
 
 builder.Services.AddScoped<DiscountGrpcService>();
 
+//--------------------------------------------- AutoMapper ------------------------------------------------
+
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
+
 //--------------------------------------------- MassTransit ------------------------------------------------
 
 builder.Services.AddMassTransit(config =>
